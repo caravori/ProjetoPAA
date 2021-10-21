@@ -1,33 +1,43 @@
 #ifndef QUICKSORT_H
 #define QUICKSORT_H
+#include <vector>
 
-void quicksort(int *number,int first,int last){
-   int i, j, pivot, temp;
+using namespace std;
 
-   if(first<last){
-      pivot=first;
-      i=first;
-      j=last;
+// QUICKSORT
+// -------------------------------------------------------------------------
 
-      while(i<j){
-         while(number[i]<=number[pivot]&&i<last)
-            i++;
-         while(number[j]>number[pivot])
-            j--;
-         if(i<j){
-            temp=number[i];
-            number[i]=number[j];
-            number[j]=temp;
-         }
-      }
+// Partition function
+int partition(vector <int> &v, int start, int end) {
+	
+	int pivot = start; // Take the first element as a pivot 
+	int i = start + 1;
+	int j = end;
 
-      temp=number[pivot];
-      number[pivot]=number[j];
-      number[j]=temp;
-      quicksort(number,first,j-1);
-      quicksort(number,j+1,last);
+	while (i <= j) {
+		
+		// If element at the left is bigger than the pivot and
+		// element at the right is smaller, swap elements
+		
+		if (v[i] > v[pivot] && v[j] < v[pivot]) {
+			swap(v[i], v[j]);
+		}
+		else if (v[i] <= v[pivot]) { i++; } 
+		else if (v[j] >= v[pivot]) { j--; } 
+	}
 
-   }
+	// we swap the pivot into the right position
+	swap(v[j], v[pivot]);
+	return j;
 }
 
+// QuickSort
+void quicksort(vector <int> &v, int start, int end) {
+
+	if (start < end) {
+		int pivot = partition(v, start, end);
+		quicksort(v, start, pivot);
+		quicksort(v, pivot + 1, end);
+	}
+}
 #endif

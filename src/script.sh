@@ -128,11 +128,9 @@ echo "ordenado"
 ./main 1000 2 4
 ./main 2000 2 4
 ./main 5000 2 4
+./main 1000 2 4
+./main 2000 2 4
 ./main 10000 2 4
-./main 20000 2 4
-./main 100000 2 4
-./main 200000 2 4
-./main 1000000 2 4
 
 echo "reverso"
 ./main 10 3 4

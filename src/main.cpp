@@ -10,6 +10,7 @@
 #include <vector>
 
 int main (int argc, char **argv){
+    int flag = 0;
     int num = atoi(argv[1]);
     std::vector<int> data;
     data.reserve(num);
@@ -17,12 +18,15 @@ int main (int argc, char **argv){
     switch (atoi(argv[2])){
     case 1:
         data = gerador(num,false,false);
+        flag = 1;
         break;
     case 2:
         data = gerador(num,true,false);
+        flag = 2;
         break;
     case 3:
         data = gerador(num, true,true);
+        flag = 3;
         break;
     default:
         printf("Argumento 2 é definido para, desordenado(1),ordenado(2),reverso(3)");
@@ -32,6 +36,8 @@ int main (int argc, char **argv){
 
     int *datinha = data.data();
 
+    FILE *fp = fopen("data.out", "a");
+
     switch (atoi(argv[3])){
         case 1:{
             std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
@@ -39,6 +45,8 @@ int main (int argc, char **argv){
             std::chrono::high_resolution_clock::time_point t2 =  std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
             printf("Tempo: %f\n",time_span.count());
+            fprintf(fp,"Insertion;%d;%f;%d;",flag,time_span.count(),num);
+             
            break;
         }
         case 2:{ 
@@ -47,6 +55,7 @@ int main (int argc, char **argv){
             std::chrono::high_resolution_clock::time_point t2 =  std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
             printf("Tempo: %f\n",time_span.count());
+            fprintf(fp,"Shell;%d;%f;%d;",flag,time_span.count(),num); 
             break;
         }
         case 3: {
@@ -55,14 +64,17 @@ int main (int argc, char **argv){
             std::chrono::high_resolution_clock::time_point t2 =  std::chrono::high_resolution_clock::now();         
             std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
             printf("Tempo: %f\n",time_span.count());
+            fprintf(fp,"Merge;%d;%f;%d;",flag,time_span.count(),num);
             break;
         }
         case 4: {
             std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
-            quicksort(datinha,datinha[0],datinha[num-1]);
+            quicksort(data,0,num-1);
             std::chrono::high_resolution_clock::time_point t2 =  std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
             printf("Tempo: %f\n",time_span.count());
+            datinha = data.data();
+            fprintf(fp,"Quick;%d;%f;%d;",flag,time_span.count(),num);
             break;
         }
         case 5:{
@@ -71,6 +83,7 @@ int main (int argc, char **argv){
             std::chrono::high_resolution_clock::time_point t2 =  std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
             printf("Tempo: %f\n",time_span.count());
+            fprintf(fp,"Bucket;%d;%f;%d;",flag,time_span.count(),num);
             break;
         }
         case 6:{
@@ -79,6 +92,7 @@ int main (int argc, char **argv){
             std::chrono::high_resolution_clock::time_point t2 =  std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
             printf("Tempo: %f\n",time_span.count());
+            fprintf(fp,"Counting;%d;%f;%d;",flag,time_span.count(),num);
             break;
         }
         default:
