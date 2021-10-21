@@ -119,8 +119,7 @@ echo "desordenado"
 ./main 10000 1 4
 ./main 20000 1 4
 ./main 100000 1 4
-./main 200000 1 4
-./main 1000000 1 4
+
 
 echo "ordenado"
 ./main 10 2 4
@@ -141,8 +140,7 @@ echo "reverso"
 ./main 10000 3 4
 ./main 20000 3 4
 ./main 100000 3 4
-./main 200000 3 4
-./main 1000000 3 4
+
 
 echo "bucket"
 echo "desordenado"
